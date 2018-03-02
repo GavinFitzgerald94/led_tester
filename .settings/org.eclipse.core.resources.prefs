@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+encoding//led_tester/cli.py=utf-8
+encoding//led_tester/led_tester.py=utf-8
+encoding//tests/test_led_tester.py=utf-8
+encoding/setup.py=utf-8
