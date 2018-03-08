@@ -9,8 +9,10 @@ class LEDTester:
     
     def __init__(self, N):
         self.lights = [[False]*N for _ in range(N)]
+        self.N = N
         
     def apply(self, led_cmd):
+        
         on_pat = re.compile(".*(turn on)\s*([+-]?\d+)\s*,\s*([+-]?\d+)\s*through\s*([+-]?\d+)\s*,\s*([+-]?\d+).*")
         off_pat = re.compile(".*(turn off)\s*([+-]?\d+)\s*,\s*([+-]?\d+)\s*through\s*([+-]?\d+)\s*,\s*([+-]?\d+).*")
         switch_pat = re.compile(".*(switch)\s*([+-]?\d+)\s*,\s*([+-]?\d+)\s*through\s*([+-]?\d+)\s*,\s*([+-]?\d+).*")
@@ -20,13 +22,14 @@ class LEDTester:
         
         if on:
             point1_x = on.group(2)
-            print(point1_x)
             point1_y = on.group(3)
-            print(point1_y)
             point2_x = on.group(4)
-            print(point2_x)
             point2_y = on.group(5)
-            print(point2_y)
+            
+            if int(point2_x) >= self.N:
+                point2_x = self.N-1
+            if int(point2_y) >= self.N:
+                point2_y = self.N-1
             
             for i in range(int(point1_x), int(point2_x)+1):
                 for j in range(int(point1_y), int(point2_y)+1):
@@ -34,26 +37,28 @@ class LEDTester:
             
         elif off:
             point1_x = off.group(2)
-            print(point1_x)
             point1_y = off.group(3)
-            print(point1_y)
             point2_x = off.group(4)
-            print(point2_x)
             point2_y = off.group(5)
-            print(point2_y)
+            
+            if int(point2_x) >= self.N:
+                point2_x = self.N-1
+            if int(point2_y) >= self.N:
+                point2_y = self.N-1
             
             for i in range(int(point1_x), int(point2_x)+1):
                 for j in range(int(point1_y), int(point2_y)+1):
                     self.lights[i][j] = False
         elif switch:
             point1_x = switch.group(2)
-            print(point1_x)
             point1_y = switch.group(3)
-            print(point1_y)
             point2_x = switch.group(4)
-            print(point2_x)
             point2_y = switch.group(5)
-            print(point2_y)
+            
+            if int(point2_x) >= self.N:
+                point2_x = self.N-1
+            if int(point2_y) >= self.N:
+                point2_y = self.N-1
             
             for i in range(int(point1_x), int(point2_x)+1):
                 for j in range(int(point1_y), int(point2_y)+1):
